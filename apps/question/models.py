@@ -25,14 +25,28 @@ class Question(BaseModel):
         verbose_name_plural = "Questions"
 
 
-class Answear(BaseModel):
+class Answer(BaseModel):
     text = models.CharField(max_length=255)
-    question = models.ForeignKey(models.ForeignKey, on_delete=models.CASCADE)
+    question = models.ForeignKey(
+        Question, on_delete=models.CASCADE, related_name="answers"
+    )
     is_correct = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return self.text
 
     class Meta:
-        verbose_name = "Answear"
-        verbose_name_plural = "Answears"
+        verbose_name = "Answer"
+        verbose_name_plural = "Answers"
+
+
+class UploadQuestion(BaseModel):
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    questions = models.FileField(upload_to="questions")
+
+    def __str__(self) -> str:
+        return self.subject.name
+
+    class Meta:
+        verbose_name = "Upload Question"
+        verbose_name_plural = "Upload Questions"
