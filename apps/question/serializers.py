@@ -25,7 +25,7 @@ class QuestionSerializer(serializers.ModelSerializer):
 
 
 class UploadQuestionSerializer(serializers.ModelSerializer):
-    subject = serializers.CharField()  # Subject uchun string nom kiritiladi
+    subject = serializers.CharField() 
 
     class Meta:
         model = UploadQuestion

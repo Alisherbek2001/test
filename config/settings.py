@@ -30,11 +30,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'drf_yasg',
     "rest_framework",
     "apps.common",
     "apps.users",
-    "apps.student",
     "apps.question",
+    "apps.exam",
 ]
 
 
