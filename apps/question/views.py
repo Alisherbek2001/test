@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework.generics import (
     ListCreateAPIView,
     CreateAPIView,
@@ -6,16 +5,20 @@ from rest_framework.generics import (
 )
 from .models import Question, UploadQuestion, Subject
 from .serializers import QuestionSerializer, UploadQuestionSerializer, SubjectSerializer
+from apps.common.permissions import IsTeacher, IsAdmin
+from rest_framework.permissions import IsAuthenticated
 
 
 class QuestionListCreateAPIView(ListCreateAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+    permission_classes = [IsTeacher | IsAdmin]
 
 
 class QuestionRetrieveAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+    permission_classes = [IsTeacher, IsAdmin]
 
 
 class SubjectListCreateAPIView(ListCreateAPIView):
@@ -31,3 +34,6 @@ class SubjectRetrieveAPIView(RetrieveUpdateDestroyAPIView):
 class UploadQuestionCreateAPIView(CreateAPIView):
     queryset = UploadQuestion.objects.all()
     serializer_class = UploadQuestionSerializer
+    permission_classes = [
+        IsTeacher,
+    ]

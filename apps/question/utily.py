@@ -3,10 +3,11 @@ from .models import Question, Answer, Subject
 
 
 def import_questions_from_excel(file_path, subject_id):
-    data = pd.read_excel(file_path)
+    data = pd.read_excel(file_path).dropna(how="all")
 
     subject = Subject.objects.get(id=subject_id)
-
+    for i in data.iterrows():
+        print(i)
     for index, row in data.iterrows():
         question_text = row.iloc[0]
 
