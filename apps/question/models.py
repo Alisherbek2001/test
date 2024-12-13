@@ -13,6 +13,7 @@ class Subject(BaseModel):
         verbose_name_plural = "Subjects"
 
 
+
 class Question(BaseModel):
     text = models.CharField(max_length=255)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)

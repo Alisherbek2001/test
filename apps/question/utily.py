@@ -6,8 +6,6 @@ def import_questions_from_excel(file_path, subject_id):
     data = pd.read_excel(file_path).dropna(how="all")
 
     subject = Subject.objects.get(id=subject_id)
-    for i in data.iterrows():
-        print(i)
     for index, row in data.iterrows():
         question_text = row.iloc[0]
 
@@ -19,6 +17,6 @@ def import_questions_from_excel(file_path, subject_id):
         Answer.objects.create(text=correct_answer, question=question, is_correct=True)
 
         for answer_text in other_answers:
-            Answer.objects.create(text=answer_text, question=question, is_correct=False)
+            Answer.objects.create(text=answer_text, question=question, is_correct=False)                                                                                             
 
     print("Savollar va javoblar muvaffaqiyatli yuklandi.")
