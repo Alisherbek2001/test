@@ -3,8 +3,13 @@ from rest_framework.generics import (
     CreateAPIView,
     RetrieveUpdateDestroyAPIView,
 )
-from .models import Question, UploadQuestion, Subject
-from .serializers import QuestionSerializer, UploadQuestionSerializer, SubjectSerializer
+from .models import Question, UploadQuestion, Subject, SubSubject
+from .serializers import (
+    QuestionSerializer,
+    UploadQuestionSerializer,
+    SubjectSerializer,
+    SubSubjectSerializer,
+)
 from apps.common.permissions import IsTeacher, IsAdmin, IsStudent
 
 
@@ -23,13 +28,25 @@ class QuestionRetrieveAPIView(RetrieveUpdateDestroyAPIView):
 class SubjectListCreateAPIView(ListCreateAPIView):
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
-    permission_classes = [IsTeacher | IsAdmin]
+    permission_classes = [IsTeacher]
 
 
 class SubjectRetrieveAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
-    permission_classes = [IsTeacher | IsAdmin]
+    permission_classes = [IsTeacher]
+
+
+class SubSubjectListCreateAPIView(ListCreateAPIView):
+    queryset = SubSubject.objects.all()
+    serializer_class = SubSubjectSerializer
+    permission_classes = [IsTeacher]
+
+
+class SubSubjectRetrieveAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = SubSubject.objects.all()
+    serializer_class = SubSubjectSerializer
+    permission_classes = [IsTeacher]
 
 
 class UploadQuestionCreateAPIView(CreateAPIView):

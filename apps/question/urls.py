@@ -5,6 +5,8 @@ from .views import (
     QuestionRetrieveAPIView,
     SubjectListCreateAPIView,
     SubjectRetrieveAPIView,
+    SubSubjectListCreateAPIView,
+    SubSubjectRetrieveAPIView,
 )
 
 urlpatterns = [
@@ -17,6 +19,12 @@ urlpatterns = [
     path("subject/", SubjectListCreateAPIView.as_view(), name="Subject-list"),
     path(
         "subject/<int:pk>/", SubjectRetrieveAPIView.as_view(), name="Subject-retrieve"
+    ),
+    path("subsubject/", SubSubjectListCreateAPIView.as_view(), name="SubSubject-list"),
+    path(
+        "subsubject/<int:pk>/",
+        SubSubjectRetrieveAPIView.as_view(),
+        name="SubSubject-retrieve",
     ),
     path(
         "upload-question/",

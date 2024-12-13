@@ -1,5 +1,6 @@
 from django.db import models
 from apps.common.models import BaseModel
+from apps.users.models import CustomUser
 
 
 class Subject(BaseModel):
@@ -13,10 +14,27 @@ class Subject(BaseModel):
         verbose_name_plural = "Subjects"
 
 
+class SubSubject(BaseModel):
+    name = models.CharField(max_length=255)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "SubSubject"
+        verbose_name_plural = "SubSubjects"
+
 
 class Question(BaseModel):
     text = models.CharField(max_length=255)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    sub_subject = models.ForeignKey(
+        SubSubject, on_delete=models.CASCADE, null=True, blank=True
+    )
+    owner = models.ForeignKey(
+        CustomUser, on_delete=models.SET_NULL, blank=True, null=True
+    )
 
     def __str__(self) -> str:
         return self.text
