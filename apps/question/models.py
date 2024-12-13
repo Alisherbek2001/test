@@ -16,7 +16,9 @@ class Subject(BaseModel):
 
 class SubSubject(BaseModel):
     name = models.CharField(max_length=255)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    subject = models.ForeignKey(
+        Subject, on_delete=models.CASCADE, related_name="subsubjects"
+    )
 
     def __str__(self):
         return self.name

@@ -3,9 +3,9 @@ from .models import Answer, Question, SubSubject, Subject, UploadQuestion
 from .utily import import_questions_from_excel
 
 
-class SubjectSerializer(serializers.ModelSerializer):
+class SubSubjectAllSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Subject
+        model = SubSubject
         fields = "__all__"
 
 
@@ -18,8 +18,19 @@ class SubSubjectSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         res = super().to_representation(instance)
-        res["subject"] = SubjectSerializer(instance.subject, context=self.context).data
+        res["subject"] = {"id": instance.subject.id, "name": instance.subject.name}
         return res
+
+
+class SubjectSerializer(serializers.ModelSerializer):
+    sub_subjects = SubSubjectAllSerializer(
+        many=True, read_only=True, source="subsubjects"
+    )
+
+    class Meta:
+        model = Subject
+        fields = ["id", "name", "sub_subjects", "created_at", "updated_at"]
+        depth = 1
 
 
 class AnswerSerializer(serializers.ModelSerializer):
