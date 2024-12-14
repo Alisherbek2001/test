@@ -8,10 +8,11 @@ class QuestionAdmin(admin.ModelAdmin):
         "subject",
         "sub_subject",
         "owner",
+        "language",
         "created_at",
     ]
     search_fields = ["text"]
-    list_editable = ["subject", "sub_subject"]
+    list_editable = ["subject", "sub_subject", "language"]
     list_per_page = 10
 
 

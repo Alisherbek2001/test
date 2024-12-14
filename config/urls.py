@@ -11,7 +11,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView,
 )
-
+from debug_toolbar.toolbar import debug_toolbar_urls
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -26,20 +26,30 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
 )
 
-urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("api/", include("apps.question.urls")),
-    # path("api/", include("apps.exam.urls")),
-    path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
-    path("api/token/verify/", TokenVerifyView.as_view(), name="token_verify"),
-    path(
-        "swagger<format>/", schema_view.without_ui(cache_timeout=0), name="schema-json"
-    ),
-    path(
-        "swagger/",
-        schema_view.with_ui("swagger", cache_timeout=0),
-        name="schema-swagger-ui",
-    ),
-    path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns = (
+    [
+        path("admin/", admin.site.urls),
+        path("api/", include("apps.question.urls")),
+        # path("api/", include("apps.exam.urls")),
+        path("api/", include("apps.class.urls")),
+        path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+        path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+        path("api/token/verify/", TokenVerifyView.as_view(), name="token_verify"),
+        path(
+            "swagger<format>/",
+            schema_view.without_ui(cache_timeout=0),
+            name="schema-json",
+        ),
+        path(
+            "swagger/",
+            schema_view.with_ui("swagger", cache_timeout=0),
+            name="schema-swagger-ui",
+        ),
+        path(
+            "redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"
+        ),
+        path("chaining/", include("smart_selects.urls")),
+    ]
+    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    + debug_toolbar_urls()
+)

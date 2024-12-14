@@ -37,6 +37,9 @@ class Question(BaseModel):
     owner = models.ForeignKey(
         CustomUser, on_delete=models.SET_NULL, blank=True, null=True
     )
+    language = models.CharField(
+        max_length=2, choices=(("uz", "Uz"), ("ru", "Ru")), default="uz"
+    )
 
     def __str__(self) -> str:
         return self.text

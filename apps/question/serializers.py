@@ -42,7 +42,7 @@ class AnswerSerializer(serializers.ModelSerializer):
 class QuestionSerializer(serializers.ModelSerializer):
     answers = AnswerSerializer(many=True)
     subject = SubjectSerializer()
-    sub_subject = SubSubjectSerializer()
+    # sub_subject = SubSubjectSerializer()
 
     class Meta:
         model = Question
@@ -50,7 +50,7 @@ class QuestionSerializer(serializers.ModelSerializer):
             "id",
             "text",
             "subject",
-            "sub_subject",
+            # "sub_subject",
             "answers",
             "created_at",
             "updated_at",

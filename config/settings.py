@@ -34,10 +34,13 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "rest_framework_simplejwt",
+    "debug_toolbar",
+    "smart_selects",
     "apps.common",
     "apps.users",
     "apps.question",
     "apps.exam",
+    "apps.class",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -63,6 +66,11 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+]
+
+INTERNAL_IPS = [
+    "127.0.0.1",
 ]
 
 ROOT_URLCONF = "config.urls"

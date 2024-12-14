@@ -19,7 +19,6 @@ class Test(BaseModel):
         ),
         default="joriy_nazorat",
     )
-    questions = models.ManyToManyField(Question, blank=True)
     score = models.FloatField(default=100.0)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
